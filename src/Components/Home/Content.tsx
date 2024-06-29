@@ -23,7 +23,7 @@ export default function Content() {
   const getdata =async ()=>{
     try{
 
-        let response = await axios.get('http://localhost:3000/api/HomeBlog')
+        let response = await axios.get('api/HomeBlog')
         setdatas(response.data.data)
     }catch(err){
         return err
