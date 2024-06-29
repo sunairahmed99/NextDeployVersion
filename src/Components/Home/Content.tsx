@@ -33,7 +33,7 @@ export default function Content() {
 const catdata =async ()=>{
   try{
 
-      let response = await axios.get('/api/Category/')
+      let response = await axios.get('https://vercel.com/sunair-ahmeds-projects/next-deploy-version/GLjcr5K5XXHkbcPqE5Dvf7GKYDBY/api/Category/')
       setcatdatas(response.data.data)
   }catch(err){
       return err
