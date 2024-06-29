@@ -17,21 +17,21 @@ const nextcors = {
   }
 };
 
-const nextConfig = {
-    reactStrictMode: true,
-    images: {
-        remotePatterns: [
-            {
-              protocol: 'https',
-              hostname: 'tailwindui.com',
-              port: '',
-              pathname: '**',
-            },
-          ],
-          domains: ['tailwindui.com','images.unsplash.com'],
-          dangerouslyAllowSVG: true,
-    },
-  };
+// const nextConfig = {
+//     reactStrictMode: true,
+//     images: {
+//         remotePatterns: [
+//             {
+//               protocol: 'https',
+//               hostname: 'tailwindui.com',
+//               port: '',
+//               pathname: '**',
+//             },
+//           ],
+//           domains: ['tailwindui.com','images.unsplash.com'],
+//           dangerouslyAllowSVG: true,
+//     },
+//   };
   
-  export {nextConfig,nextcors};
+  export default nextcors
   
