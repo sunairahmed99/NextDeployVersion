@@ -16,14 +16,14 @@ function classNames(...classes:(string | undefined | null | false)[]): string {
 
 export default function Navbar() {
   const dispatch = useDispatch<AppDispatch>()
-  const [stoken,gtoken] = React.useState(false)
+  const [stoken,gtoken] = React.useState(true)
   const {user} = useSelector(userdata)
   console.log(user)
   let users:any;
   let navigation:any;
   let userNavigation:any;
 
-  if(stoken ===true  && user.role !== 'admin'){
+  if(stoken ===false  && user.role !== 'admin'){
 
      users = {
       name: user.name,
@@ -46,7 +46,7 @@ export default function Navbar() {
       { name: 'Sign out', href: '/Logout'},
     ]
   }
-  else if(user && stoken===true  && user.role === 'admin'){
+  else if(user && stoken===false  && user.role === 'admin'){
 
     users = {
       name: user.name,
@@ -96,10 +96,10 @@ export default function Navbar() {
   useEffect(()=>{
     let token = localStorage.getItem('token')
     if(token){
-      gtoken(true)
+      gtoken(false)
       dispatch(getUser(token))
     }else{
-      gtoken(false)
+      gtoken(true)
 
     }
   },[dispatch])
