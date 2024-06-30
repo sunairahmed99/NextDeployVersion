@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux'
 export default function Profile() {
     const{user} = useSelector(userdata)
     let userdatas = user && user
-    console.log(userdatas)
     
     
   return (

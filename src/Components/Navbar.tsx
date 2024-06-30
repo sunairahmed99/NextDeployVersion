@@ -22,7 +22,7 @@ export default function Navbar() {
   let navigation:any;
   let userNavigation:any;
 
-  if(user && stoken ==true && user.length !== 0){
+  if(user && stoken ==true && user.length !== 0 && user.role !== 'admin'){
 
      users = {
       name: user.name,
