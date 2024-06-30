@@ -53,10 +53,10 @@ useEffect(()=>{
     {
       getdatas && getdatas.map((blog:blogdata,index:number)=>{
         return(
-           <div key={index} className=" md:w-[350px] w-full items-center mb-[20px]  md:mb-[40px]">
+           <div key={index} className=" md:w-[350px] w-full items-center mb-[20px]  md:mb-[40px] border border-solid border-3 border-red-600">
         
            <Link href={`/Blogcat/${blog.category._id}`}>
-           <Image src={`/blog/${blog.image}`} alt="" className="lg:w-[350px] h-[250px] w-full" style={{ border: "15px solid blue", borderRadius: "40px 20px" }} height={200} width={200}  priority/>
+           <Image src={`/blog/${blog.image}`} alt="" className="w-full lg:w-[350px] h-[250px]" style={{ border: "15px solid blue", borderRadius: "40px 20px" }} height={250} width={200}  priority/>
            </Link>
         
           <div className="text-white pt-3 lg:pl-2 text-center md:text-start">
