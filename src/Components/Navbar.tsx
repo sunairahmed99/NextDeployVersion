@@ -45,7 +45,7 @@ export default function Navbar() {
       { name: 'Sign out', href: '/Logout'},
     ]
   }
-  else if(user || stoken || user.length !== 0 && user.role === 'admin'){
+  else if(user && stoken && user.length !== 0 && user.role === 'admin'){
 
     users = {
       name: user.name,
