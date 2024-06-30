@@ -23,7 +23,7 @@ export default function Blog() {
   const getdata =async ()=>{
     try{
 
-        let response = await axios.get('https://vercel.com/sunair-ahmeds-projects/next-deploy-version/GLjcr5K5XXHkbcPqE5Dvf7GKYDBY/api/Blog')
+        let response = await axios.get('/api/Blog')
         setdatas(response.data.data)
     }catch(err){
         return err
@@ -33,7 +33,7 @@ export default function Blog() {
 const catdata =async ()=>{
   try{
 
-      let response = await axios.get('https://vercel.com/sunair-ahmeds-projects/next-deploy-version/GLjcr5K5XXHkbcPqE5Dvf7GKYDBY/api/Category/')
+      let response = await axios.get('/api/Category/')
       setcatdatas(response.data.data)
   }catch(err){
       return err
