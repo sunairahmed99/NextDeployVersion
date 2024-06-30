@@ -56,7 +56,7 @@ useEffect(()=>{
            <div key={index} className=" md:w-[350px] w-full items-center mb-[20px]  md:mb-[40px]">
         
            <Link href={`/Blogcat/${blog.category._id}`}>
-           <Image src={`/blog/${blog.image}`} alt="" className="lg:w-[350px] h-[250px] w-80%" style={{ border: "15px solid blue", borderRadius: "40px 20px" }} height={200} width={200}  priority/>
+           <Image src={`/blog/${blog.image}`} alt="" className="lg:w-[350px] h-[250px] w-full" style={{ border: "15px solid blue", borderRadius: "40px 20px" }} height={200} width={200}  priority/>
            </Link>
         
           <div className="text-white pt-3 lg:pl-2 text-center md:text-start">
