@@ -104,6 +104,8 @@ export default function Navbar() {
   },[dispatch])
   return (
     <>
+   {
+    user &&
      <div className="min-h-full">
         <Disclosure as="nav" className="bg-blue-900">
           {({ open }) => (
@@ -256,6 +258,7 @@ export default function Navbar() {
           )}
         </Disclosure>
       </div>
+   }  
     </>
   )
 }
