@@ -16,7 +16,6 @@ function classNames(...classes:(string | undefined | null | false)[]): string {
 
 export default function Navbar() {
   const dispatch = useDispatch<AppDispatch>()
-  let token = localStorage.getItem('token')
   const [stoken,gtoken] = React.useState(false)
   const {user} = useSelector(userdata)
   let users:any;
@@ -94,6 +93,7 @@ export default function Navbar() {
   }
 
   useEffect(()=>{
+    let token = localStorage.getItem('token')
     if(token){
       gtoken(true)
       dispatch(getUser(token))
