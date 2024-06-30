@@ -98,7 +98,7 @@ export default function BlogDetail() {
             getblogs && 
             <div className='lg:col-span-3'>
             
-            <Image src={`/blog/${getblogs.image}`} alt="" className='mt-[30px] lg:m-[40px] h-[300px]  lg:w-[700px] lg:h-[470px] border border-blue-300 rounded-lg' height={300} width={300}  priority/>
+            <Image src={`/blog/${getblogs.image}`} alt="" className='w-full mt-[30px] lg:m-[40px] h-[300px]  lg:w-[700px] lg:h-[470px] border border-blue-300 rounded-lg' height={300} width={300}  priority/>
 
             <div className='lg:m-[40px] text-white  lg:w-[750px]'>
                 <h1 className='font-bold text-xl pb-[20px] text-center md:text-left mt-[5px]  lg:mt-[-20px]'>{getblogs.name}</h1>
