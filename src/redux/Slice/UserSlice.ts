@@ -9,10 +9,12 @@ export const registerUser = createAsyncThunk(
         try{
 
             let response = await axios.post('/api/user/register',data)
+            
 
             if(response.data.status !==200){
                throw new Error(response.data.message)
             }
+            console.log(response.data)
 
             localStorage.setItem('token',response.data.token)
             return response.data.data
@@ -34,7 +36,7 @@ export const loginUser = createAsyncThunk(
           if (response.data.status !== 200) {
             throw new Error(response.data.message);
           }
-          localStorage.setItem('token',response.data.token)
+          localStorage.setItem('token', response.data.token);
           return response.data.data
 
       }catch(error:any){
@@ -54,13 +56,11 @@ export const getUser = createAsyncThunk(
             }
           })
           if (response.data.status !== 200) {
-            localStorage.removeItem('token')
             throw new Error(response.data.message);
           }
           return response.data.data
 
       }catch(error:any){
-           localStorage.removeItem('token')
            return rejectWithValue(error.message)
       }
   },
