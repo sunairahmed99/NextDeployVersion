@@ -26,7 +26,7 @@ export async function GET(req:NextRequest):Promise<any>{
 
         return NextResponse.json({
             status:204,
-            data:'somethin went wrong'
+            data:err
         })
 
     }
