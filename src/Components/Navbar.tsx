@@ -94,17 +94,22 @@ export default function Navbar() {
   }
 
   useEffect(()=>{
-  if (typeof window !== 'undefined') {
-    let token = localStorage.getItem('token')
-    if(token){
-      gtoken(false)
-      dispatch(getUser(token))
-    }else{
-      gtoken(true)
+  const fetchData = async () => {
+      let token = localStorage.getItem('token');
+      if (token) {
+        try {
+          await dispatch(getUser(token));
+        } catch (error) {
+          console.error('Error fetching user:', error);
+        }
+      } else {
+      }
+    };
 
+    if (!user) {
+      fetchData();
     }
-    }
-  },[dispatch])
+  },[dispatch,user])
   return (
   <>
   {
