@@ -56,12 +56,14 @@ export const getUser = createAsyncThunk(
             }
           })
           if (response.data.status !== 200) {
+            console.log('errrrorr')
             throw new Error(response.data.message);
           }
           console.log(response)
           return response.data.data
 
       }catch(error:any){
+        console.log('errrror')
            return rejectWithValue(error.message)
       }
   },
