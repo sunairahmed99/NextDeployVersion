@@ -16,14 +16,14 @@ function classNames(...classes:(string | undefined | null | false)[]): string {
 
 export default function Navbar() {
   const dispatch = useDispatch<AppDispatch>()
-  const [stoken,gtoken] = React.useState(false)
+  const [stoken,gtoken] = React.useState(true)
   const {user,loading} = useSelector(userdata)
   console.log(user)
   let users:any;
   let navigation:any;
   let userNavigation:any;
 
-  if(stoken ===true  && user.role !== 'admin'){
+  if(stoken ===false  && user.role !== 'admin'){
 
      users = {
       name: user.name,
@@ -46,7 +46,7 @@ export default function Navbar() {
       { name: 'Sign out', href: '/Logout'},
     ]
   }
-  else if(stoken===true  && user.role === 'admin'){
+  else if(user && stoken===false  && user.role === 'admin'){
 
     users = {
       name: user.name,
@@ -94,25 +94,17 @@ export default function Navbar() {
   }
 
   useEffect(()=>{
-  const fetchData = async () => {
-      let token = localStorage.getItem('token');
-      if (token) {
-        try {
-          await dispatch(getUser(token));
-          gtoken(true)
-        } catch (error) {
-          console.error('Error fetching user:', error);
-          gtoken(false)
-        }
-      } else {
+    let token = localStorage.getItem('token')
+    if(token){
       gtoken(false)
-      }
-    };
+      console.log('tokenn haiii')
+      dispatch(getUser(token))
+    }else{
+      gtoken(true)
+      console.log('tokenn nai haiii')
 
-    if (!user) {
-      fetchData();
     }
-  },[dispatch,user])
+  },[dispatch])
   return (
   <>
   {
