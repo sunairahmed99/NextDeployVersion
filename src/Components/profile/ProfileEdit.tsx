@@ -19,7 +19,6 @@ export default function ProfileEdit() {
     const dispatch = useDispatch<AppDispatch>()
     const[getimage,setimage] = React.useState()
     const {user} = useSelector(userdata)
-    let userdatas = user
     let {id} = useParams()
     const route = useRouter()
     const{errmsg,loading} = useSelector(userdata)
@@ -29,8 +28,8 @@ export default function ProfileEdit() {
 
       let token = localStorage.getItem('token')
       let formData = new FormData()
-      let image = getimage ? getimage : userdatas.image
-      let oldimage = userdatas.image
+      let image = getimage ? getimage : user.image
+      let oldimage = user.image
 
       formData.append('email',data.email)
       formData.append('image',image)
@@ -45,18 +44,18 @@ export default function ProfileEdit() {
 
     useEffect(()=>{
 
-      if(id !== userdatas._id){
+      if(id !== user._id){
 
         return route.push('/profile')
       }
 
-    },[id,route,userdatas._id])
+    },[id,route,user._id])
    
     
   return (
     <>
     {
-        userdatas && id == userdatas._id &&
+        user && id == user._id &&
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 text-white">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
          
@@ -81,7 +80,7 @@ export default function ProfileEdit() {
                       message: 'Invalid email syntax'
                     }})}
                   type="email"
-                  defaultValue={userdatas?.email}
+                  defaultValue={user?.email}
                   autoComplete="email"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -107,7 +106,19 @@ export default function ProfileEdit() {
             </div>
             <div>
               <div className="mt-2">
-                <Image className='h-[100px] w-[150px]' src={`/user/${userdatas?.image}`} alt="No Image Found" height={200} width={200}  priority/>
+              {
+                user && user.image ?   <Image
+                className="h-[10px] w-[10px]"
+                src={`/user/${user?.image}`}
+                alt=""
+                height={20} width={20}  priority
+              />: <Image
+              className="h-[10px] w-[10px]"
+              src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+              alt=""
+              height={200} width={200}  priority
+            />
+              }
               </div>
             </div>
             <div>
