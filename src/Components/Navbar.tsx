@@ -17,7 +17,7 @@ function classNames(...classes:(string | undefined | null | false)[]): string {
 export default function Navbar() {
   const dispatch = useDispatch<AppDispatch>()
   const [stoken,gtoken] = React.useState(true)
-  const {user} = useSelector(userdata)
+  const {user,loading} = useSelector(userdata)
   console.log(user)
   let users:any;
   let navigation:any;
@@ -104,6 +104,10 @@ export default function Navbar() {
     }
   },[dispatch])
   return (
+  <>
+  {
+  loading ? <h1>Loadingg</h1> :
+  
   
      <div className="min-h-full">
         <Disclosure as="nav" className="bg-blue-900">
@@ -256,6 +260,8 @@ export default function Navbar() {
             </>
           )}
         </Disclosure>      </div>
+  }
+  </>      
 
   )
 }
