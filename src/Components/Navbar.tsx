@@ -94,6 +94,7 @@ export default function Navbar() {
   }
 
   useEffect(()=>{
+  if (typeof window !== 'undefined') {
     let token = localStorage.getItem('token')
     if(token){
       gtoken(false)
@@ -101,6 +102,7 @@ export default function Navbar() {
     }else{
       gtoken(true)
 
+    }
     }
   },[dispatch])
   return (
