@@ -16,14 +16,14 @@ function classNames(...classes:(string | undefined | null | false)[]): string {
 
 export default function Navbar() {
   const dispatch = useDispatch<AppDispatch>()
-  const [stoken,gtoken] = React.useState(true)
+  const [stoken,gtoken] = React.useState(false)
   const {user,loading} = useSelector(userdata)
   console.log(user)
   let users:any;
   let navigation:any;
   let userNavigation:any;
 
-  if(stoken ===false  && user.role !== 'admin'){
+  if(stoken ===true  && user.role !== 'admin'){
 
      users = {
       name: user.name,
@@ -46,7 +46,7 @@ export default function Navbar() {
       { name: 'Sign out', href: '/Logout'},
     ]
   }
-  else if(user && stoken===false  && user.role === 'admin'){
+  else if(stoken===true  && user.role === 'admin'){
 
     users = {
       name: user.name,
@@ -99,10 +99,13 @@ export default function Navbar() {
       if (token) {
         try {
           await dispatch(getUser(token));
+          gtoken(true)
         } catch (error) {
           console.error('Error fetching user:', error);
+          gtoken(false)
         }
       } else {
+      gtoken(false)
       }
     };
 
