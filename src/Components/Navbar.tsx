@@ -18,11 +18,12 @@ export default function Navbar() {
   const dispatch = useDispatch<AppDispatch>()
   const [stoken,gtoken] = React.useState(false)
   const {user} = useSelector(userdata)
+  console.log(user)
   let users:any;
   let navigation:any;
   let userNavigation:any;
 
-  if(user && stoken ===true  && user.role !== 'admin'){
+  if(stoken ===true  && user.role !== 'admin'){
 
      users = {
       name: user.name,
@@ -103,9 +104,7 @@ export default function Navbar() {
     }
   },[dispatch])
   return (
-    <>
-   {
-    user &&
+  
      <div className="min-h-full">
         <Disclosure as="nav" className="bg-blue-900">
           {({ open }) => (
@@ -256,9 +255,7 @@ export default function Navbar() {
               </DisclosurePanel>
             </>
           )}
-        </Disclosure>
-      </div>
-   }  
-    </>
+        </Disclosure>      </div>
+
   )
 }
