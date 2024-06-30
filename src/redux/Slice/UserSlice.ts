@@ -50,7 +50,11 @@ export const getUser = createAsyncThunk(
   'users/get',
   async (token:any,{rejectWithValue}) => {
       try{
-          let response = await axios.get('/api/user/getuser')
+          let response = await axios.get('/api/user/getuser',{
+            headers:{
+              Authorization:`Bearer ${token}`
+            }
+          })
           if (response.data.status !== 200) {
             console.log('errr')
             console.log(response)

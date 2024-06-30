@@ -27,8 +27,8 @@ export async function protect(req: Authrequest): Promise<any> {
                     return false;
                 }
 
-                req.user = getUser; // Attach user information to the request object
-                return true; // Authentication successful
+                 // Attach user information to the request object
+                return getUser; // Authentication successful
             } catch (err) {
                 console.error("Error verifying JWT:", err);
                 return false; // Error occurred during JWT verification or user retrieval

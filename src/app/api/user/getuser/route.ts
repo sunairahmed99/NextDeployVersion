@@ -2,20 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { Authrequest, protect } from "@/app/api/protectapi";
 
 
-export async function GET(req:NextRequest):Promise<any>{
+export async function GET(req:Authrequest):Promise<any>{
     try{
 
-        let authdata = req as Authrequest
-        let protection = await protect(authdata)
+        let currentuser = await protect(req)
     
-        if(!protection){
+        if(!currentuser){
             return NextResponse.json({
                 status:204,
                 message:'please login'
             })
         }
-    
-        let currentuser = authdata.user
     
         return NextResponse.json({
             status:200,
