@@ -98,6 +98,7 @@ export default function Navbar() {
     if(token){
       gtoken(false)
       console.log('tokenn haiii')
+      console.log(token)
       dispatch(getUser(token))
     }else{
       gtoken(true)

@@ -56,7 +56,8 @@ export const getUser = createAsyncThunk(
             }
           })
           if (response.data.status !== 200) {
-            console.log('errrrorr')
+            console.log('errr')
+            console.log(response)
             throw new Error(response.data.message);
           }
           console.log(response)
@@ -64,6 +65,7 @@ export const getUser = createAsyncThunk(
 
       }catch(error:any){
         console.log('errrror')
+        console.log(error)
            return rejectWithValue(error.message)
       }
   },
