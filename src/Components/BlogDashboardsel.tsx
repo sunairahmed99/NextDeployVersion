@@ -46,7 +46,6 @@ export default function BlogDashboardsel(){
         try{
            
           if(user._id){
-            console.log(user._id)
             let response = await axios.get(`/api/usrblogdashboard/${user._id}`)
             setdatas(response.data.data)
 
