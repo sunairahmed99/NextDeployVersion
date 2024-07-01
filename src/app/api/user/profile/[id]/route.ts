@@ -10,7 +10,7 @@ connect()
 
 
 
-export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promise<any>{
+export async function PATCH(req:NextRequest,{params}:{params:{id:string}}):Promise<any>{
 
     try{
         let currentuser = await protect(req)
@@ -28,7 +28,6 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
         let reqbody =await req.formData()
         let image = reqbody.get('image') as File
         let oldimage = reqbody.get('oldimage') as any
-        console.log(reqbody)
 
         let newuser;
 
@@ -72,9 +71,16 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
                 new:true,
                 runValidators:true
             })
+              
         }
-        console.log(newuser)
-       
+        else{
+
+            newuser = await User.findByIdAndUpdate(id,{
+                new:true,
+                runValidators:true
+            })
+        }
+
 
         return NextResponse.json({
             status:200,
