@@ -59,6 +59,10 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
                     try {
                         await unlink(oldimagepath);
                     } catch (error:any) {
+                        return NextResponse.json({
+                            status:200,
+                            data:error
+                        }) 
                         if (error.code !== 'ENOENT') {
                             console.error('Error deleting old image:', error);
                         } else {
@@ -68,7 +72,10 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
                 }
 
             }catch(err){
-                return err
+                return NextResponse.json({
+                    status:200,
+                    data:err
+                }) 
 
             }
 
