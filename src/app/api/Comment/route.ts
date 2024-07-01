@@ -9,17 +9,16 @@ export async function POST(req:NextRequest):Promise<any>{
     try{
         
 
-        let authdata = req as Authrequest
-        let protection = await protect(authdata)
+        let currentuser = await protect(req)
         
-        if(!protection){
+    
+        if(!currentuser){
             return NextResponse.json({
                 status:204,
                 message:'please login'
             })
         }
     
-        let currentuser = authdata.user
         let id = currentuser._id
         let reqbody = await req.formData()
         let comment = reqbody.get('comment') as string

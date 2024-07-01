@@ -37,6 +37,7 @@ export default function DashboardBlog(){
                     Authorization:`Bearer ${token}`
                 }
             })
+            console.log(response)
           
             route.push('/Dashboard_Blog_sel')
             return response.data.data

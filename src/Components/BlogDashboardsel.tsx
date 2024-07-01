@@ -42,8 +42,13 @@ export default function BlogDashboardsel(){
     useEffect(()=>{
       const getdata =async ()=>{
         try{
-           
-            let response = await axios.get(`/api/usrblogdashboard`)
+           let token = localStorage.getItem('token')
+            let response = await axios.get(`/api/usrblogdashboard`,{
+              headers:{
+                Authorization:`Bearer ${token}`
+              }
+            })
+            console.log(response)
             setdatas(response.data.data)
 
         }catch(err){

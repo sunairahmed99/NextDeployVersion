@@ -11,18 +11,17 @@ connect()
 
 export async function PATCH(req:NextRequest):Promise<any>{
 
-    let authdata = req as Authrequest
-    let protection = await protect(authdata)
-
-    if(!protection){
-        return NextResponse.json({
-            status:204,
-            message:'please login'
-        })
-    }
     try{
-      
-        let currentuser = authdata.user
+
+        let currentuser = await protect(req)
+        
+    
+        if(!currentuser){
+            return NextResponse.json({
+                status:204,
+                message:'please login'
+            })
+        }
         let reqbody = await req.json()
         let{oldpassword,password} = reqbody
         

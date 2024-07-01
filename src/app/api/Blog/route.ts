@@ -10,17 +10,15 @@ connect()
 export async function POST(req:NextRequest): Promise<any>{
     try{
 
-        let authdata = req as Authrequest
-        let protection = await protect(authdata)
+        let currentuser = await protect(req)
         
-        if(!protection){
-             NextResponse.json({
+    
+        if(!currentuser){
+            return NextResponse.json({
                 status:204,
                 message:'please login'
             })
         }
-    
-        let currentuser = authdata.user
 
         let reqbody = await req.formData()
         console.log(reqbody)

@@ -12,17 +12,17 @@ connect()
 
 export async function PATCH(req:NextRequest,{params}:{params:{id:string}}):Promise<any>{
 
-    let authdata = req as Authrequest
-    let protection = await protect(authdata)
-
-    if(!protection){
-        return NextResponse.json({
-            status:204,
-            message:'please login'
-        })
-    }
-
     try{
+        let currentuser = await protect(req)
+        
+    
+        if(!currentuser){
+            return NextResponse.json({
+                status:204,
+                message:'please login'
+            })
+        }
+        
         let {id} = params
 
         let reqbody =await req.formData()
