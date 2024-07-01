@@ -10,7 +10,7 @@ connect()
 
 
 
-export async function PATCH(req:NextRequest,{params}:{params:{id:string}}):Promise<any>{
+export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promise<any>{
 
     try{
         let currentuser = await protect(req)
@@ -26,7 +26,6 @@ export async function PATCH(req:NextRequest,{params}:{params:{id:string}}):Promi
         let {id} = params
 
         let reqbody =await req.formData()
-        let email = reqbody.get('email') as string
         let image = reqbody.get('image') as File
         let oldimage = reqbody.get('oldimage') as any
 
@@ -34,7 +33,7 @@ export async function PATCH(req:NextRequest,{params}:{params:{id:string}}):Promi
 
         if(typeof image === 'string'){
             
-            newuser  =  await User.findByIdAndUpdate(id,{email,image:image},{
+            newuser  =  await User.findByIdAndUpdate(id,{image:image},{
                 new:true,
                 runValidators:true
             })
@@ -68,19 +67,13 @@ export async function PATCH(req:NextRequest,{params}:{params:{id:string}}):Promi
 
             }
 
-            newuser  =  await User.findByIdAndUpdate(id,{email,image:image.name},{
+            newuser  =  await User.findByIdAndUpdate(id,{image:image.name},{
                 new:true,
                 runValidators:true
             })
               
         }
-        else{
-
-            newuser = await User.findByIdAndUpdate(id,{email:email},{
-                new:true,
-                runValidators:true
-            })
-        }
+       
 
 
         return NextResponse.json({
@@ -89,6 +82,7 @@ export async function PATCH(req:NextRequest,{params}:{params:{id:string}}):Promi
         })
 
     }catch(err){
+        console.log(err)
         return NextResponse.json({
             status:204,
             message:'something went wrong'

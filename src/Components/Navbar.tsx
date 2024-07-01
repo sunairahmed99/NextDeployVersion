@@ -42,7 +42,7 @@ export default function Navbar() {
 
     userNavigation = [
       { name: 'My Profile', href: '/profile'},
-      { name: 'Update Password', href: '#' },
+      { name: 'Update Password', href: '/updatepass' },
       { name: 'Sign out', href: '/Logout'},
     ]
   }

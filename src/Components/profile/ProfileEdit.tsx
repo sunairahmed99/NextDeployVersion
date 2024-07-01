@@ -31,7 +31,6 @@ export default function ProfileEdit() {
       let image = getimage ? getimage : user.image
       let oldimage = user.image
 
-      formData.append('email',data.email)
       formData.append('image',image)
       formData.append('oldimage',oldimage)
 
@@ -66,28 +65,6 @@ export default function ProfileEdit() {
   
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form noValidate className="space-y-5" method="POST" onSubmit={handleSubmit(onSubmit)}>
-  
-  
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
-                My Email
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  {...register("email", { required:'email required',  pattern: {
-                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                      message: 'Invalid email syntax'
-                    }})}
-                  type="email"
-                  defaultValue={user?.email}
-                  autoComplete="email"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-              {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
-            </div>
             <div>
               <label htmlFor="image" className="block text-sm font-medium leading-6 text-white">
                 My Image
@@ -129,7 +106,7 @@ export default function ProfileEdit() {
                 Update Profile
               </button>
               {loading && <p className='text-red-600 text-center'>processing...</p>}  
-            {errmsg && <p className='text-red-600 text-center'>{errmsg}</p>}
+            {errmsg && <p className='text-red-600 text-center'>This Email Already Registered</p>}
             </div>
           </form>
         </div>
