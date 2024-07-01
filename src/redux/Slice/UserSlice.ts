@@ -115,11 +115,14 @@ export const updateprofile = createAsyncThunk(
           })
 
           if(response.data.status !==200){
+            console.log('err',response)
              throw new Error(response.data.message)
           }
+          console.log(response)
           return response.data.data
 
       }catch(error:any){
+        console.log('error',error)
 
           return rejectWithValue(error.message)
 
