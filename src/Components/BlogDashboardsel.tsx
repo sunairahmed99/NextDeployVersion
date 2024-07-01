@@ -3,8 +3,6 @@ import Image from 'next/image';
 import axios from 'axios'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
-import { userdata } from '@/redux/Slice/UserSlice';
 
 interface blogdata{
     name:string,
@@ -21,7 +19,7 @@ interface blogdata{
 
 export default function BlogDashboardsel(){
     let[getdatas, setdatas] = useState<null |[]>()
-    let {user} = useSelector(userdata)
+    console.log(getdatas)
 
     const deldatas = (e:any,id:string)=>{
         e.preventDefault()
@@ -45,17 +43,15 @@ export default function BlogDashboardsel(){
       const getdata =async ()=>{
         try{
            
-          if(user._id){
-            let response = await axios.get(`/api/usrblogdashboard/${user._id}`)
+            let response = await axios.get(`/api/usrblogdashboard`)
             setdatas(response.data.data)
 
-          }
         }catch(err){
             return err
         }
     }
       getdata()
-  },[user._id])
+  },[])
 
 
   return (

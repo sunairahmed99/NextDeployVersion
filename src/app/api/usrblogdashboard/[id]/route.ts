@@ -2,24 +2,26 @@ import {connect} from '@/Configdb/config';
 import { cookies } from 'next/headers';
 import Blog from '@/Models/BlogSchema';
 import { NextRequest, NextResponse } from 'next/server';
+import {Authrequest,protect } from '../../protectapi';
 
 connect()
 
-export async function GET(req:NextRequest,{params}:{params:{id:string}}):Promise<any>{
-    try{
+export async function POST(){}
 
-        let {id} = params
-        let token = req.cookies.get('tokenn')?.value
-        console.log(token)        
+export async function GET(req:Authrequest):Promise<any>{
+    try{
+         
+        let currentuser = await protect(req)
+        
     
-        if(!token){
+        if(!currentuser){
             return NextResponse.json({
                 status:204,
                 message:'please login'
             })
         }
 
-        let newblog = await Blog.find({userid:id}).populate('category').populate('userid')        
+        let newblog = await Blog.find({userid:currentuser._id}).populate('category').populate('userid')        
 
         return NextResponse.json({
             status:200,
