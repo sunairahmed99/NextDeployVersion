@@ -1,4 +1,5 @@
 import User from "@/Models/UserSchema";
+import fs from 'fs';
 import pathdata from 'path'
 import {writeFile,unlink} from "fs/promises";
 import { useParams } from "next/navigation";
@@ -28,6 +29,7 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
         let reqbody =await req.formData()
         let image = reqbody.get('image') as File
         let oldimage = reqbody.get('oldimage') as any
+        console.log(oldimage)
 
         let newuser;
 
@@ -47,6 +49,7 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
 
         else if(image){
             try{
+                console.log('checkk')
 
                 let byteData = await image.arrayBuffer()
                 let buffer = Buffer.from(byteData)
@@ -54,31 +57,28 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
                 await writeFile(path,buffer)
 
                 if(oldimage){
-                    const oldimagepath = pathdata.join(__dirname,`public/user/${oldimage}`);
 
-                    try {
-                        await unlink(oldimagepath);
-                    } catch (error:any) {
-                        return NextResponse.json({
-                            status:200,
-                            data:error
-                        }) 
-                        if (error.code !== 'ENOENT') {
-                            console.error('Error deleting old image:', error);
-                        } else {
-                            console.log('Old image does not exist, no need to delete');
-                        }
+                    const oldimagepath = pathdata.join(__dirname, `public/user/${oldimage}`);
+                    console.log('pathssss', oldimagepath);
+                
+                    if (fs.existsSync(oldimagepath)) {
+                        await fs.promises.unlink(oldimagepath);
+                        console.log('File deleted successfully');
+                    } else {
+                        console.log('File does not exist');
                     }
                 }
+                
 
             }catch(err){
+                console.log(err)
                 return NextResponse.json({
                     status:200,
                     data:err
                 }) 
 
             }
-
+            console.log('check again')
             newuser  =  await User.findByIdAndUpdate(id,{image:image.name},{
                 new:true,
                 runValidators:true
