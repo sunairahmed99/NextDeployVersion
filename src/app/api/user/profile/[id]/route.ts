@@ -8,7 +8,7 @@ import {Authrequest,protect } from "@/app/api/protectapi";
 
 connect()
 
-
+export async function POST(){}
 
 export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promise<any>{
 
