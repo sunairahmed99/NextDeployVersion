@@ -97,20 +97,13 @@ export default function Navbar() {
     let token = localStorage.getItem('token')
     if(token){
       gtoken(false)
-      console.log('tokenn haiii')
-      console.log(token)
       dispatch(getUser(token))
     }else{
       gtoken(true)
-      console.log('tokenn nai haiii')
-
     }
   },[dispatch])
   return (
   <>
-  {
-  loading ? <h1>Loadingg</h1> :
-  
   
      <div className="min-h-full">
         <Disclosure as="nav" className="bg-blue-900">
@@ -263,7 +256,7 @@ export default function Navbar() {
             </>
           )}
         </Disclosure>      </div>
-  }
+  
   </>      
 
   )
