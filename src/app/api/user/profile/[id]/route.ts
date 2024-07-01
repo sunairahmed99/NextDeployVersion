@@ -38,6 +38,11 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
                 runValidators:true
             })
 
+            return NextResponse.json({
+                status:200,
+                data:newuser
+            })
+
         }
 
         else if(image){
@@ -71,15 +76,17 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
                 new:true,
                 runValidators:true
             })
+
+            return NextResponse.json({
+                status:200,
+                data:newuser
+            })
               
         }
         
 
 
-        return NextResponse.json({
-            status:200,
-            data:newuser
-        })
+       
 
     }catch(err){
         console.log(err)
