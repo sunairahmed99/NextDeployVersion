@@ -67,6 +67,7 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
                     } else {
                         console.log('File does not exist');
                     }
+                }
                 
 
             }catch(err){
