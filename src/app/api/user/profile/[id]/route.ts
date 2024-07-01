@@ -10,7 +10,7 @@ connect()
 
 
 
-export async function PATCH(req:NextRequest,{params}:{params:{id:string}}):Promise<any>{
+export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promise<any>{
 
     try{
         let currentuser = await protect(req)
@@ -73,13 +73,7 @@ export async function PATCH(req:NextRequest,{params}:{params:{id:string}}):Promi
             })
               
         }
-        else{
-
-            newuser = await User.findByIdAndUpdate(id,{
-                new:true,
-                runValidators:true
-            })
-        }
+        
 
 
         return NextResponse.json({
