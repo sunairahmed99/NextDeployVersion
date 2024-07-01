@@ -80,9 +80,13 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
             return NextResponse.json({
                 status:200,
                 data:newuser
-            })
-              
+            })  
         }
+
+        return NextResponse.json({
+            status:200,
+            data:'success'
+        })
         
 
 
