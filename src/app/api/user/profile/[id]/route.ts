@@ -57,18 +57,11 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
                 await writeFile(path,buffer)
 
                 if(oldimage){
-                    let oldimagepath = pathdata.join(process.cwd(), `public/user/${oldimage}`);
-    
-                    if (fs.existsSync(oldimagepath)) {
-                        let file = fs.readFileSync(oldimagepath);
-                        await fs.promises.unlink(oldimagepath);
-                        console.log('File deleted successfully:', oldimagepath);
-                    } else {
-                        console.log('File does not exist:', oldimagepath);
-                        // Handle case where file does not exist
-                    }
+                    // let oldimagepath = pathdata.join(process.cwd(), `public/user/${oldimage}`);
+                    const imagePath = pathdata.join(process.cwd(), 'public', 'user', `${id}`,oldimage);
 
-                   
+                    // Write the new image data to the specified path, overwriting the existing image
+                    await fs.promises.writeFile(imagePath,image.name);               
                 }
                 
 
