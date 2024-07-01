@@ -8,7 +8,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 
 type Inputs = {
-    email: string,
     image:string
   };
 
@@ -79,7 +78,7 @@ export default function ProfileEdit() {
                   onChange={(e:any) => setimage(e.target.files[0])}
                 />
               </div>
-              {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
+              {errors.image && <p className='text-red-500'>{errors.image.message}</p>}
             </div>
             <div>
               <div className="mt-2">

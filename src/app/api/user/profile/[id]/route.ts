@@ -28,6 +28,7 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
         let reqbody =await req.formData()
         let image = reqbody.get('image') as File
         let oldimage = reqbody.get('oldimage') as any
+        console.log(reqbody)
 
         let newuser;
 
@@ -71,10 +72,9 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
                 new:true,
                 runValidators:true
             })
-              
         }
+        console.log(newuser)
        
-
 
         return NextResponse.json({
             status:200,
