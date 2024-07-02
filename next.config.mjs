@@ -33,13 +33,13 @@ const nextConfig = {
     },
   };
 
-  const image = {
-    experimental: {
-      outputFileTracingIncludes: {
-        '/api/another': ['./necessary-folder/**/*'],
-      },
-    },
-  } 
+  // const image = {
+  //   experimental: {
+  //     outputFileTracingIncludes: {
+  //       '/api/another': ['./necessary-folder/**/*'],
+  //     },
+  //   },
+  // } 
   
-  export default image
+  export default nextConfig
   
