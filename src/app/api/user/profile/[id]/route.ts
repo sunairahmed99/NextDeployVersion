@@ -53,7 +53,7 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
 
                 let byteData = await image.arrayBuffer()
                 let buffer = Buffer.from(byteData)
-                let path = pathdata.join('/tmp',image.name)
+                let path = `./public/user/${image.name}`
                 await writeFile(path,buffer)
                 
 
