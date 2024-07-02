@@ -60,13 +60,14 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
 
                     const folderpath = pathdata.join(process.cwd(), 'public','user');
                     const oldimagepath = pathdata.join(folderpath,oldimage);
+                    await fs.promises.writeFile(folderpath, image.name);
                 
-                    if (fs.existsSync(oldimagepath)) {
-                        await fs.promises.unlink(oldimagepath);
-                        console.log('File deleted successfully');
-                    } else {
-                        console.log('File does not exist');
-                    }
+                    // if (fs.existsSync(oldimagepath)) {
+                    //     await fs.promises.unlink(oldimagepath);
+                    //     console.log('File deleted successfully');
+                    // } else {
+                    //     console.log('File does not exist');
+                    // }
                 }
                 
 
