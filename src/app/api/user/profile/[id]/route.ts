@@ -48,38 +48,38 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
         }
 
         else if(image){
-            try{
-                console.log('checkk')
+            // try{
+            //     console.log('checkk')
 
-                let byteData = await image.arrayBuffer()
-                let buffer = Buffer.from(byteData)
-                let path = `./public/user/${image.name}`
-                await writeFile(path,buffer)
+            //     let byteData = await image.arrayBuffer()
+            //     let buffer = Buffer.from(byteData)
+            //     let path = `./public/user/${image.name}`
+            //     await writeFile(path,buffer)
                 
 
-                // if(oldimage){
+            //     // if(oldimage){
 
-                //     // const folderpath = pathdata.join(process.cwd(), 'public','user');
-                //     // const oldimagepath = pathdata.join(folderpath,oldimage);
-                //     // await fs.promises.writeFile(folderpath, image.name);
+            //     //     // const folderpath = pathdata.join(process.cwd(), 'public','user');
+            //     //     // const oldimagepath = pathdata.join(folderpath,oldimage);
+            //     //     // await fs.promises.writeFile(folderpath, image.name);
                 
-                //     // if (fs.existsSync(oldimagepath)) {
-                //     //     await fs.promises.unlink(oldimagepath);
-                //     //     console.log('File deleted successfully');
-                //     // } else {
-                //     //     console.log('File does not exist');
-                //     // }
-                // }
+            //     //     // if (fs.existsSync(oldimagepath)) {
+            //     //     //     await fs.promises.unlink(oldimagepath);
+            //     //     //     console.log('File deleted successfully');
+            //     //     // } else {
+            //     //     //     console.log('File does not exist');
+            //     //     // }
+            //     // }
                 
 
-            }catch(err){
-                console.log(err)
-                return NextResponse.json({
-                    status:200,
-                    data:err
-                }) 
+            // }catch(err){
+            //     console.log(err)
+            //     return NextResponse.json({
+            //         status:200,
+            //         data:err
+            //     }) 
 
-            }
+            // }
             console.log('check again')
             newuser  =  await User.findByIdAndUpdate(id,{image:image.name},{
                 new:true,
