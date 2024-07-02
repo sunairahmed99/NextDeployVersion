@@ -32,6 +32,14 @@ const nextConfig = {
           dangerouslyAllowSVG: true,
     },
   };
+
+  const image = {
+    experimental: {
+      outputFileTracingIncludes: {
+        '/api/another': ['./necessary-folder/**/*'],
+      },
+    },
+  } 
   
-  export default nextConfig
+  export default image
   
