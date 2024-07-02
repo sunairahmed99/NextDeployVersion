@@ -58,8 +58,8 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
 
                 if(oldimage){
 
-                    const oldimagepath = pathdata.join(process.cwd(), `tmp/${oldimage}`);
-                    console.log('pathssss', oldimagepath);
+                    const folderpath = pathdata.join(process.cwd(), 'public','user');
+                    const oldimagepath = pathdata.join(folderpath,oldimage);
                 
                     if (fs.existsSync(oldimagepath)) {
                         await fs.promises.unlink(oldimagepath);
