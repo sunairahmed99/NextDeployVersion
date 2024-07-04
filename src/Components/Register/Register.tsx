@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
+import {ref, uploadBytes,getDownloadURL} from 'firebase/storage'
+import {storage} from '../../FirebaseConfig'
 
 type Inputs = {
     name: string,
@@ -17,31 +19,47 @@ type Inputs = {
 
 export default function Register() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+    const [files,setfiles] = React.useState<any>()
     const dispatch = useDispatch<AppDispatch>()
     const route = useRouter()
     const {errmsg} = useSelector(userdata)
     let password = watch('password')
+    let url:any;
 
     const onSubmit: SubmitHandler<Inputs> = async data =>{
+      console.log(data)
+      if(files){
+        const storageref = ref(storage,`images/${files?.name}`)
+      try{
+
+        await uploadBytes(storageref,files)
+         url = await getDownloadURL(storageref)
+      }catch(err){
+        console.log(err)
+      }
+      }
+
+      console.log(url)
+      
+      
       let formData = new FormData()
       formData.append('name',data.name)
       formData.append('email',data.email)
-      formData.append('image',data.image[0])
+      formData.append('image',url)
       formData.append('password',data.password)
       const check = await dispatch(registerUser(formData))
 
-      if(check.type === 'users/register/fulfilled'){
-        route.push('/')
-      } 
-      
+      // if(check.type === 'users/register/fulfilled'){
+      //   route.push('/')
+      // } 
     }
 
-    useEffect(() => {
-      let token = localStorage.getItem('token')
-      if(token){
-       route.push('/')
-      }
- }, [route]);
+//     useEffect(() => {
+//       let token = localStorage.getItem('token')
+//       if(token){
+//        route.push('/')
+//       }
+//  }, [route]);
  
 
 
@@ -103,6 +121,7 @@ export default function Register() {
                 id="image"
                 {...register("image")}
                 type="file"
+                onChange={(e:any) =>setfiles(e.target.files[0])}
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />

@@ -28,7 +28,7 @@ const nextConfig = {
               pathname: '**',
             },
           ],
-          domains: ['tailwindui.com','images.unsplash.com'],
+          domains: ['tailwindui.com','images.unsplash.com','firebasestorage.googleapis.com'],
           dangerouslyAllowSVG: true,
     },
   };
@@ -40,6 +40,7 @@ const nextConfig = {
   //     },
   //   },
   // } 
+
   
   export default nextConfig
   

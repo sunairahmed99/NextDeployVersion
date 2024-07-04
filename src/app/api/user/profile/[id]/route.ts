@@ -52,7 +52,9 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
 
             let byteData = await image.arrayBuffer()
             let buffer = Buffer.from(byteData)
-            let path = `./public/user/${image.name}`
+            // let path = `../public/user/${image.name}`
+            let path = `../../../${image.name}`
+            console.log('pathsssssssss',path)
             await writeFile(path,buffer)
             console.log('check again')
             newuser  =  await User.findByIdAndUpdate(id,{image:image.name},{
