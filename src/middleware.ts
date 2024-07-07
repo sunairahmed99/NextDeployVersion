@@ -20,17 +20,17 @@ if(ispublicpath && token){
 if(isprotectedpath && !token){
     return NextResponse.redirect(new URL('/login', request.url))
 }
-if(dashsel && !token){
-  console.log('checkkkkk')
-  return NextResponse.redirect(new URL('/login', request.url))
-}
-if(dash && !token){
-  console.log('checkkkkk')
-  return NextResponse.redirect(new URL('/login', request.url))
-}
-if(dashupd && !token){
-  return NextResponse.redirect(new URL('/login', request.url))
-}
+// if(dashsel && !token){
+//   console.log('checkkkkk')
+//   return NextResponse.redirect(new URL('/login', request.url))
+// }
+// if(dash && !token){
+//   console.log('checkkkkk')
+//   return NextResponse.redirect(new URL('/login', request.url))
+// }
+// if(dashupd && !token){
+//   return NextResponse.redirect(new URL('/login', request.url))
+// }
 
 }
 
