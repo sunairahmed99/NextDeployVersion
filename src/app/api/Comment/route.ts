@@ -1,6 +1,6 @@
 import {connect} from '@/Configdb/config'
 import { NextRequest, NextResponse } from 'next/server';
-import {Authrequest,protect } from '@/app/api/protectapi';
+import {protect } from '@/app/api/protectapi';
 import Comment from '@/Models/CommentSchema';
 
 connect()

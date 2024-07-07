@@ -22,6 +22,7 @@ interface blogdata{
 
 export default function AdminBlogsel(){
     let[getdatas, setdatas] = useState<null |[]>()
+    console.log(getdatas)
     const dispatch = useDispatch<AppDispatch>()
     const {user} = useSelector(userdata)
 
@@ -101,7 +102,7 @@ export default function AdminBlogsel(){
     </thead>
     <tbody>
         {
-            getdatas.map((blog:blogdata,index)=>{
+            getdatas && getdatas.map((blog:blogdata,index)=>{
                 return(
                     <tr key={index} className="bg-blue-700 border-b dark:bg-gray-800 dark:border-gray-700">
                     <td
@@ -113,7 +114,15 @@ export default function AdminBlogsel(){
                     <td className=" text-white px-6 py-4">{blog.userid?.name}</td>
                     <td className=" text-white px-6 py-4">{blog.name}</td>
                     <td className=" text-white px-6 py-4">{blog.category.name}</td>
-                    <td className=" text-white px-6 py-4"><Image src={blog.image && `/blog/${blog?.image}`} alt="" height={200} width={200}  priority/></td>
+                    <td className=" text-white px-6 py-4">
+                  
+                  <img
+                    src={blog.image}  // Replace with your placeholder image path
+                    alt="Placeholder"
+                    height={200}
+                    width={200}
+                  />
+                 </td>
                     <td className=" text-white  py-4">{blog.description}</td>
                     <td className=" text-white px-6 py-4"><Link href={`Dashboard_Blog_update/${blog._id}`}>Edit</Link></td>
                     <td onClick={e => deldatas(e,blog._id)} className=" text-white px-6 py-4">Delete</td>

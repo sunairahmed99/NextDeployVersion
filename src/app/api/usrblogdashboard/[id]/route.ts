@@ -1,7 +1,6 @@
 import {connect} from '@/Configdb/config';
-import { cookies } from 'next/headers';
 import Blog from '@/Models/BlogSchema';
-import { NextRequest, NextResponse } from 'next/server';
+import {NextResponse } from 'next/server';
 import {Authrequest,protect } from '../../protectapi';
 
 connect()
@@ -29,7 +28,6 @@ export async function GET(req:Authrequest):Promise<any>{
         })
 
     }catch(err){
-        console.log(err)
         return NextResponse.json({
             status:204,
             message:'something went wrong'

@@ -3,7 +3,7 @@ import { loginUser, userdata } from '@/redux/Slice/UserSlice';
 import { AppDispatch } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,7 +19,7 @@ export default function Login() {
     const {register, handleSubmit,formState: { errors } } = useForm<Inputs>();
     const dispatch = useDispatch<AppDispatch>()
     const route = useRouter()
-    const{errmsg,user,status} = useSelector(userdata)
+    const{errmsg} = useSelector(userdata)
     
 
     const onSubmit: SubmitHandler<Inputs> =async data =>{

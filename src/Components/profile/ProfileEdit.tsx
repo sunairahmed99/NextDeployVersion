@@ -1,9 +1,11 @@
 "use client"
-import {forgotUser, updateprofile, userdata } from '@/redux/Slice/UserSlice';
+import {updateprofile, userdata } from '@/redux/Slice/UserSlice';
+import {ref, uploadBytes,getDownloadURL,deleteObject} from 'firebase/storage'
+import {storage} from '../../FirebaseConfig'
 import Image from 'next/image';
 import { AppDispatch } from '@/redux/store';
 import { useParams, useRouter } from 'next/navigation';
-import React, { useEffect, useState }  from 'react'
+import React, { useEffect}  from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -27,11 +29,26 @@ export default function ProfileEdit() {
 
       let token = localStorage.getItem('token')
       let formData = new FormData()
-      let image = getimage ? getimage : user.image
-      let oldimage = user.image
+      let url = user.image
 
-      formData.append('image',image)
-      formData.append('oldimage',oldimage)
+      if(getimage){
+            
+        const file:any = getimage;
+        const storageref = ref(storage, `images/${file.name}`);
+        const delref = ref(storage,user.image);
+        console.log(delref)
+        deleteObject(delref).then(() => {
+            console.log('deletedd')
+          }).catch((error) => {
+            console.log(error)
+          });
+        await uploadBytes(storageref, file);
+        url = await getDownloadURL(storageref);
+
+    }
+
+    
+      formData.append('image',url)
 
       const check = await dispatch(updateprofile({id,formData,token}))
 
@@ -85,7 +102,7 @@ export default function ProfileEdit() {
               {
                 user && user.image ?   <Image
                 className="h-[10px] w-[10px]"
-                src={`/user/${user?.image}`}
+                src={user?.image}
                 alt=""
                 height={20} width={20}  priority
               />: <Image

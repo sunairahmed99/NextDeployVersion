@@ -1,14 +1,8 @@
 import {connect} from '@/Configdb/config';
-import Cors from 'cors';
 import Hblog from '@/Models/HomeBlogSchema';
-import { writeFile } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
 
 connect()
-
-  Cors()
-  
-
 
 export async function POST(req:NextRequest):Promise<any>{
     try{
@@ -16,38 +10,17 @@ export async function POST(req:NextRequest):Promise<any>{
         let reqbody = await req.formData()
         let name = reqbody.get('bname') as string
         let description = reqbody.get('bdescription') as string
-        let image = reqbody.get('bimage') as File
+        let image = reqbody.get('bimage') as string
         let category = reqbody.get('category') as string
-        let newblog;
 
-        if(image !== undefined && image !== null){
-            try{
 
-                let byteData = await image.arrayBuffer()
-                let buffer = Buffer.from(byteData)
-                let path = `./public/homeblog/${image.name}`
-                await writeFile(path,buffer)
-                
-
-            }catch(err){
-                return err
-            }
-
-            newblog  =  await Hblog.create({
+            let newblog = await Hblog.create({
                 name,
                 description,
-                category,
-                image:image.name,
-            })
-        }
-        else{
-
-            newblog = await Hblog.create({
-                name,
-                description,
+                image,
                 category,
             })
-        }
+        
 
     
 

@@ -2,7 +2,7 @@
 import axios from 'axios'
 import Image from 'next/image';
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 
 interface blogdata{
   image:string,
@@ -56,7 +56,7 @@ useEffect(()=>{
            <div key={index} className=" md:w-[350px] w-full items-center mb-[20px]  md:mb-[40px]">
         
            <Link href={`/Blogcat/${blog.category._id}`}>
-           <Image src={`/homeblog/${blog.image}`} alt="" className=" w-full lg:w-[350px] h-[250px]" style={{ border: "15px solid blue", borderRadius: "40px 20px" }} width={350} height={250} priority/>
+           <Image src={blog.image} alt="" className=" w-full lg:w-[350px] h-[250px]" style={{ border: "15px solid blue", borderRadius: "40px 20px" }} width={350} height={250} priority/>
            </Link>
         
           <div className="text-white pt-3 lg:pl-2 text-center md:text-start">

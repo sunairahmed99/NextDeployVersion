@@ -1,7 +1,5 @@
 import {connect} from '@/Configdb/config';
 import User from '@/Models/UserSchema';
-
-
 import crypto from 'crypto';
 import { ForgotEmail } from '@/utils/ForgotEmail';
 import { NextRequest, NextResponse } from 'next/server';

@@ -17,9 +17,7 @@ function classNames(...classes:(string | undefined | null | false)[]): string {
 export default function Navbar() {
   const dispatch = useDispatch<AppDispatch>()
   const [stoken,gtoken] = React.useState(true)
-  const {user,loading} = useSelector(userdata)
-  console.log(user)
-  console.log(user.image)
+  const {user} = useSelector(userdata)
   let users:any;
   let navigation:any;
   let userNavigation:any;

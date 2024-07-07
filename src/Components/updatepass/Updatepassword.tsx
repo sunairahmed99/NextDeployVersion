@@ -1,7 +1,6 @@
 "use client"
-import {resetpass, updatepass, userdata } from '@/redux/Slice/UserSlice';
+import {updatepass, userdata } from '@/redux/Slice/UserSlice';
 import { AppDispatch } from '@/redux/store';
-import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";

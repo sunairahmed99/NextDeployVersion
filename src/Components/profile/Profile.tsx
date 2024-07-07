@@ -7,20 +7,18 @@ import { useSelector } from 'react-redux'
 
 export default function Profile() {
     const{user} = useSelector(userdata)
-    let userdatas = user && user
-    
-    
+
   return (
     <>
-    {userdatas && 
+    {user && 
 
     <div className=" mt-[-40px] h-screen bg-blue-900  dark:bg-blue-900  flex flex-wrap items-center  justify-center  ">
   <div className="container lg:w-2/6 xl:w-2/7 sm:w-full md:w-2/3    bg-blue-600 text-whites  shadow-lg    transform   duration-200 easy-in-out">
     <div className=" h-32 overflow-hidden">
       {
-        userdatas && userdatas.image ?   <Image
+        user && user.image ?   <Image
         className="w-full"
-        src={`/user/${userdatas?.image}`}
+        src={user?.image}
         alt=""
         height={200} width={200}  priority
       />: <Image
@@ -34,9 +32,9 @@ export default function Profile() {
     </div>
     <div className="flex justify-center px-5  -mt-12">
     {
-        userdatas && userdatas.image ?   <Image
+        user && user.image ?   <Image
         className="w-full"
-        src={`/user/${userdatas?.image}`}
+        src={user?.image}
         alt=""
         height={20} width={20}  priority
       />: <Image
@@ -49,18 +47,18 @@ export default function Profile() {
     </div>
     <div className=" ">
       <div className="text-center px-14">
-        <h2 className="text-white text-3xl font-bold">{userdatas.name}</h2>
+        <h2 className="text-white text-3xl font-bold">{user.name}</h2>
       </div>
       <hr className="mt-6" />
       <div className="flex  bg-gray-50 ">
         <div className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer">
           <p>
-            <span className="font-semibold">{userdatas?.email}</span> 
+            <span className="font-semibold">{user?.email}</span> 
           </p>
         </div>
         <div className="border" />
         <div className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer">
-          <Link href={`/profile/${userdatas?._id}`}>
+          <Link href={`/profile/${user?._id}`}>
            Edit
           </Link>
         </div>

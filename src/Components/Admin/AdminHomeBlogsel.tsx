@@ -105,7 +105,7 @@ export default function AdminHomeBlogsel(){
                     </td>
                     <td className=" text-white px-6 py-4">{blog.name}</td>
                     <td className=" text-white px-6 py-4">{blog.category.name}</td>
-                    <td className=" text-white px-6 py-4"><Image src={blog.image && `/homeblog/${blog?.image}`} alt="" height={200} width={200}  priority/></td>
+                    <td className=" text-white px-6 py-4"><Image src={blog.image} alt="" height={200} width={200}  priority/></td>
                     <td className=" text-white  py-4">{blog.description}</td>
                     <td className=" text-white px-6 py-4"><Link href={`Dashboard_Homeblog_update/${blog._id}`}>Edit</Link></td>
                     <td onClick={e => deldatas(e,blog._id)} className=" text-white px-6 py-4">Delete</td>

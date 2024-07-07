@@ -1,10 +1,8 @@
 import {connect} from '@/Configdb/config';
 import User from '@/Models/UserSchema';
-import { useParams } from 'next/navigation';
-import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse, userAgent } from 'next/server';
-import { Authrequest, protect } from "@/app/api/protectapi";
+import { protect } from "@/app/api/protectapi";
 
 connect()
 

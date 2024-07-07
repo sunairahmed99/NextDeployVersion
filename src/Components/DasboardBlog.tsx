@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from "react-hook-form";
+import {ref, uploadBytes,getDownloadURL} from 'firebase/storage'
+import {storage} from '.././FirebaseConfig'
 
 type Inputs = {
     bname:string,
@@ -14,14 +16,24 @@ type Inputs = {
 export default function DashboardBlog(){
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     let[getdatas, setdatas] = React.useState<null |[]>()
+    const [files,setfiles] = React.useState<any>()
     const route = useRouter()
+    let url:any
 
-    const onSubmit: SubmitHandler<Inputs> = data =>{
+    const onSubmit: SubmitHandler<Inputs> =async data =>{
 
+      console.log('checkkk')
+
+      if(files){
+        const storageref = ref(storage,`images/${files?.name}`)
+
+        await uploadBytes(storageref,files)
+         url = await getDownloadURL(storageref)
+      }
         let formData = new FormData()
         formData.append('bname',data.bname)
         formData.append('category',data.category)
-        formData.append('bimage',data.bimage[0])
+        formData.append('bimage',url)
         formData.append('bdescription',data.bdescription)
 
         createHomeblog(formData)
@@ -130,9 +142,11 @@ export default function DashboardBlog(){
               <input
                 id="bimage"
                 {...register("bimage")}
+                onChange={(e:any) =>setfiles(e.target.files[0])}
                 type="file"
                 className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-black focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
+              
             </div>
             {errors.bimage && <p className='text-red-500'>{errors.bimage.message}</p>}
             </div>

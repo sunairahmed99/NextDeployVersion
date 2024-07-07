@@ -14,7 +14,6 @@ export const registerUser = createAsyncThunk(
             if(response.data.status !==200){
                throw new Error(response.data.message)
             }
-            console.log(response.data)
 
             localStorage.setItem('token',response.data.token)
             return response.data.data
@@ -61,7 +60,6 @@ export const getUser = createAsyncThunk(
           return response.data.data
 
       }catch(error:any){
-        console.log('errrror')
            return rejectWithValue(error.message)
       }
   },
@@ -74,11 +72,9 @@ export const forgotUser = createAsyncThunk(
 
           let response = await axios.post('/api/user/forgotpassword',data)
           
-          console.log(response.data.message)
           return response.data.message
 
       }catch(error:any){
-        console.log(error)
           return rejectWithValue(error)
       }
   },
@@ -115,14 +111,11 @@ export const updateprofile = createAsyncThunk(
           })
 
           if(response.data.status !==200){
-            console.log('err',response)
              throw new Error(response.data.message)
           }
-          console.log(response)
           return response.data.data
 
       }catch(error:any){
-        console.log('error',error)
 
           return rejectWithValue(error.message)
 
@@ -143,8 +136,6 @@ export const updatepass = createAsyncThunk(
           if(response.data.status !==200){
             throw new Error(response.data.message)
          }
-          
-          console.log(response.data)
           return response.data
 
       }catch(error:any){
@@ -167,7 +158,6 @@ export interface userState {
 
 export interface RootStates {
   users: userState;
-  // Add other slice states if any
 }
 
 const initialState: userState = {
@@ -203,7 +193,7 @@ export const userSlice = createSlice({
         state.loading = false
         state.error = false
         state.status = 'fullfilled'
-        state.user?.push(action.payload)
+        state.user = action.payload
     })
     .addCase(registerUser.rejected, (state, action:any) => { 
         state.loading = false
@@ -300,7 +290,5 @@ export const userSlice = createSlice({
   },
 })
 
-// Action creators are generated for each case reducer function
-// export const { increment, decrement, incrementByAmount } = counterSlice.actions
 export const userdata = (state:any) => state.users
 export default userSlice.reducer

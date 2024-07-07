@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import React, { useEffect} from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
+import {storage} from '.././FirebaseConfig'
+import {ref, uploadBytes,getDownloadURL,deleteObject} from 'firebase/storage'
 
 interface Inputs{
     category:string,
@@ -13,10 +15,7 @@ interface Inputs{
     bimage:string
   };
 
-  interface catInputs{
-    category:string,
-    _id:string,
-  };
+
 
 export default function DashboardBlogupdate(){
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
@@ -29,13 +28,27 @@ export default function DashboardBlogupdate(){
     const onSubmit: SubmitHandler<Inputs> =async data =>{
 
         let formData = new FormData()
-        let image = getimage ? getimage : getdatas.image
-        let oldimage = getdatas.image
-  
+        let url = getdatas.image
+
+        if(getimage){
+            
+            const file:any = getimage;
+            const storageref = ref(storage, `images/${file.name}`);
+            const delref = ref(storage,getdatas.image);
+            console.log(delref)
+            deleteObject(delref).then(() => {
+                console.log('deletedd')
+              }).catch((error) => {
+                console.log(error)
+              });
+              
+            await uploadBytes(storageref, file);
+            url = await getDownloadURL(storageref);
+
+        }  
         formData.append('name',data.bname)
         formData.append('description',data.bdescription)
-        formData.append('image',image)
-        formData.append('oldimage',oldimage)
+        formData.append('image',url)
         formData.append('category',data.category)
 
         UpdateHomeBlog(formData)
@@ -55,7 +68,7 @@ export default function DashboardBlogupdate(){
         try{
 
             await axios.patch(`/api/Blog/${id}`,data)
-            route.push('/Admin/Dashboard_Blog_sel')
+            route.push('/Dashboard_Blog_sel')
 
         }catch(err){
             return err
@@ -180,7 +193,7 @@ export default function DashboardBlogupdate(){
         <div className="flex items-center justify-between">        
         </div>
         <div className="mt-2">
-        <Image className='h-[100px] w-[250px]' src={`/homeblog/${getdatas.image}`} alt="" height={200} width={200}  priority/>
+        <Image className='h-[100px] w-[250px]' src={getdatas.image} alt="" height={200} width={200}  priority/>
         </div>
         {errors.bimage && <p className='text-red-500'>{errors.bimage.message}</p>}
         </div>
@@ -199,7 +212,6 @@ export default function DashboardBlogupdate(){
       </div>
     </div>
     }
-    
   </>
   )
 }

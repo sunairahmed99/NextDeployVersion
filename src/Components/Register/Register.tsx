@@ -3,7 +3,7 @@ import { registerUser, userdata } from '@/redux/Slice/UserSlice';
 import { AppDispatch } from '@/redux/store';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import {ref, uploadBytes,getDownloadURL} from 'firebase/storage'
@@ -24,23 +24,15 @@ export default function Register() {
     const route = useRouter()
     const {errmsg} = useSelector(userdata)
     let password = watch('password')
-    let url:any;
+    let url:any
 
     const onSubmit: SubmitHandler<Inputs> = async data =>{
-      console.log(data)
       if(files){
         const storageref = ref(storage,`images/${files?.name}`)
-      try{
 
         await uploadBytes(storageref,files)
          url = await getDownloadURL(storageref)
-      }catch(err){
-        console.log(err)
       }
-      }
-
-      console.log(url)
-      
       
       let formData = new FormData()
       formData.append('name',data.name)
@@ -49,17 +41,17 @@ export default function Register() {
       formData.append('password',data.password)
       const check = await dispatch(registerUser(formData))
 
-      // if(check.type === 'users/register/fulfilled'){
-      //   route.push('/')
-      // } 
+      if(check.type === 'users/register/fulfilled'){
+        route.push('/')
+      } 
     }
 
-//     useEffect(() => {
-//       let token = localStorage.getItem('token')
-//       if(token){
-//        route.push('/')
-//       }
-//  }, [route]);
+    useEffect(() => {
+      let token = localStorage.getItem('token')
+      if(token){
+       route.push('/')
+      }
+ }, [route]);
  
 
 

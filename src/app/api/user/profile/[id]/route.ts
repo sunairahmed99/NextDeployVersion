@@ -1,9 +1,5 @@
 import User from "@/Models/UserSchema";
-import fs from 'fs';
-import pathdata from 'path'
-import {writeFile,unlink} from "fs/promises";
-import { useParams } from "next/navigation";
-import { NextRequest, NextResponse } from "next/server";
+import {NextResponse } from "next/server";
 import {connect} from "@/Configdb/config"
 import {Authrequest,protect } from "@/app/api/protectapi";
 
@@ -27,37 +23,10 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
         let {id} = params
 
         let reqbody =await req.formData()
-        let image = reqbody.get('image') as File
-        let oldimage = reqbody.get('oldimage') as any
-        console.log(oldimage)
+        let image = reqbody.get('image') as string
+        let oldimage = reqbody.get('oldimage') as string
 
-        let newuser;
-
-        if(typeof image === 'string'){
-            
-            newuser  =  await User.findByIdAndUpdate(id,{image:image},{
-                new:true,
-                runValidators:true
-            })
-
-            return NextResponse.json({
-                status:200,
-                data:newuser
-            })
-
-        }
-
-        else if(image){
-            console.log('checkk')
-
-            let byteData = await image.arrayBuffer()
-            let buffer = Buffer.from(byteData)
-            // let path = `../public/user/${image.name}`
-            let path = `../../../${image.name}`
-            console.log('pathsssssssss',path)
-            await writeFile(path,buffer)
-            console.log('check again')
-            newuser  =  await User.findByIdAndUpdate(id,{image:image.name},{
+            let newuser  =  await User.findByIdAndUpdate(id,{image},{
                 new:true,
                 runValidators:true
             })
@@ -66,16 +35,6 @@ export async function PATCH(req:Authrequest,{params}:{params:{id:string}}):Promi
                 status:200,
                 data:newuser
             })  
-        }
-
-        return NextResponse.json({
-            status:200,
-            data:'success'
-        })
-        
-
-
-       
 
     }catch(err){
         console.log(err)

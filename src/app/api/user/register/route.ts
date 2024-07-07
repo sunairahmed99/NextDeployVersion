@@ -10,7 +10,6 @@ export async function POST(req:NextRequest):Promise<any>{
     try{
 
         let reqbody =await req.formData()
-        console.log(reqbody)
         let name =  reqbody.get('name') as string
         let email = reqbody.get('email') as string
         let password = reqbody.get('password') as string

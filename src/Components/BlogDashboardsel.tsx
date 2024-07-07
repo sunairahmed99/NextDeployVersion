@@ -4,6 +4,7 @@ import axios from 'axios'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
+
 interface blogdata{
     name:string,
     category:{
@@ -19,12 +20,26 @@ interface blogdata{
 
 export default function BlogDashboardsel(){
     let[getdatas, setdatas] = useState<null |[]>()
-    console.log(getdatas)
 
     const deldatas = (e:any,id:string)=>{
         e.preventDefault()
         deldata(id)
         alert('are you sure to delete this')
+        let getdata =async ()=>{
+          try{
+             let token = localStorage.getItem('token')
+              let response = await axios.get(`/api/usrblogdashboard`,{
+                headers:{
+                  Authorization:`Bearer ${token}`
+                }
+              })
+              setdatas(response.data.data)
+  
+          }catch(err){
+              return err
+          }
+      }
+        getdata()
 
     }
    
@@ -40,7 +55,7 @@ export default function BlogDashboardsel(){
     }
 
     useEffect(()=>{
-      const getdata =async ()=>{
+       let getdata =async ()=>{
         try{
            let token = localStorage.getItem('token')
             let response = await axios.get(`/api/usrblogdashboard`,{
@@ -48,7 +63,6 @@ export default function BlogDashboardsel(){
                 Authorization:`Bearer ${token}`
               }
             })
-            console.log(response)
             setdatas(response.data.data)
 
         }catch(err){
@@ -108,7 +122,7 @@ export default function BlogDashboardsel(){
                     <td className=" text-white px-6 py-4">{blog.userid?.name}</td>
                     <td className=" text-white px-6 py-4">{blog.name}</td>
                     <td className=" text-white px-6 py-4">{blog.category.name}</td>
-                    <td className=" text-white px-6 py-4"><Image src={blog.image && `/blog/${blog?.image}`} alt="" height={200} width={200}  priority/></td>
+                    <td className=" text-white px-6 py-4"><Image src={blog.image} alt="" height={200} width={200}  priority/></td>
                     <td className=" text-white  py-4">{blog.description}</td>
                     <td className=" text-white px-6 py-4"><Link href={`/Dashboard_Blog_update/${blog._id}`}>Edit</Link></td>
                     <td onClick={e => deldatas(e,blog._id)} className=" text-white px-6 py-4">Delete</td>

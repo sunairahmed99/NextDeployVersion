@@ -5,9 +5,11 @@ import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import React, { useEffect} from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
-import { getUser, userdata } from '@/redux/Slice/UserSlice'
+import { userdata } from '@/redux/Slice/UserSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '@/redux/store'
+import {ref, uploadBytes,getDownloadURL,deleteObject} from 'firebase/storage'
+import {storage} from '../../FirebaseConfig'
 
 interface Inputs{
     category:string,
@@ -16,10 +18,7 @@ interface Inputs{
     bimage:string
   };
 
-  interface catInputs{
-    category:string,
-    _id:string,
-  };
+  
 
 export default function AdminBlogupdate(){
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
@@ -35,13 +34,28 @@ export default function AdminBlogupdate(){
     const onSubmit: SubmitHandler<Inputs> =async data =>{
 
         let formData = new FormData()
-        let image = getimage ? getimage : getdatas.image
-        let oldimage = getdatas.image
+        let url = getdatas.image
+
+        if(getimage){
+            
+            const file:any = getimage;
+            const storageref = ref(storage, `images/${file.name}`);
+            const delref = ref(storage,getdatas.image);
+            console.log(delref)
+            deleteObject(delref).then(() => {
+                console.log('deletedd')
+              }).catch((error) => {
+                console.log(error)
+              });
+            await uploadBytes(storageref, file);
+            url = await getDownloadURL(storageref);
+
+        }
+
   
         formData.append('name',data.bname)
         formData.append('description',data.bdescription)
-        formData.append('image',image)
-        formData.append('oldimage',oldimage)
+        formData.append('image',url)
         formData.append('category',data.category)
 
         UpdateHomeBlog(formData)

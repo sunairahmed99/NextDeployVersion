@@ -13,14 +13,12 @@ type Inputs = {
 export default function Forgotpassword() {
     const {register, handleSubmit,formState: { errors } } = useForm<Inputs>();
     const dispatch = useDispatch<AppDispatch>()
-    const route = useRouter()
     const{errmsg,loading} = useSelector(userdata)
   
     
 
     const onSubmit: SubmitHandler<Inputs> = data =>{
         dispatch(forgotUser(data))
-        //route.push('/')
     }
    
     

@@ -2,6 +2,8 @@ import {connect} from '@/Configdb/config';
 import Blog from '@/Models/BlogSchema';
 import { NextRequest, NextResponse } from 'next/server';
 
+connect()
+
 
 export async function GET(req:NextRequest,{params}:{params:{id:String}}):Promise<any>{
     try{

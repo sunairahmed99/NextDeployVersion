@@ -2,7 +2,7 @@
 import {resetpass, userdata } from '@/redux/Slice/UserSlice';
 import { AppDispatch } from '@/redux/store';
 import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 

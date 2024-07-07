@@ -8,6 +8,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { getUser, userdata } from '@/redux/Slice/UserSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '@/redux/store'
+import {ref, uploadBytes,getDownloadURL,deleteObject} from 'firebase/storage'
+import {storage} from '../../FirebaseConfig'
 
 interface Inputs{
     category:string,
@@ -16,10 +18,6 @@ interface Inputs{
     bimage:string
   };
 
-  interface catInputs{
-    category:string,
-    _id:string,
-  };
 
 export default function AdminHomeBlogupdate(){
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
@@ -34,37 +32,55 @@ export default function AdminHomeBlogupdate(){
     const onSubmit: SubmitHandler<Inputs> =async data =>{
 
         let formData = new FormData()
-        let image = getimage ? getimage : getdatas.image
-        let oldimage = getdatas.image
+        let url = getdatas.image
+
+
+        if(getimage){
+            
+            const file:any = getimage;
+            const storageref = ref(storage, `images/${file.name}`);
+            const delref = ref(storage,getdatas.image);
+            console.log(delref)
+            deleteObject(delref).then(() => {
+                console.log('deletedd')
+              }).catch((error) => {
+                console.log(error)
+              });
+            await uploadBytes(storageref, file);
+            url = await getDownloadURL(storageref);
+
+        }
+        
+
   
         formData.append('name',data.bname)
         formData.append('description',data.bdescription)
-        formData.append('image',image)
-        formData.append('oldimage',oldimage)
+        formData.append('image',url)
         formData.append('category',data.category)
 
         UpdateHomeBlog(formData)
       }
 
     useEffect(()=>{
-        // getdata()
+        const getdata =async ()=>{
+            try{
+    
+                let response = await axios.get(`/api/HomeBlog/${id}`)
+                setdatas(response.data.data)
+            }catch(err){
+                return err
+            }
+        }
+         getdata()
         catdatas()
         let token = localStorage.getItem('token')
         if(token){
           dispatch(getUser(token))
         }
-    },[dispatch])
+    },[dispatch,id])
     
 
-    const getdata =async ()=>{
-        try{
-
-            let response = await axios.get(`/api/HomeBlog/${id}`)
-            setdatas(response.data.data)
-        }catch(err){
-            return err
-        }
-    }
+   
 
     const catdatas =async ()=>{
         try{
@@ -193,7 +209,7 @@ export default function AdminHomeBlogupdate(){
         <div className="flex items-center justify-between">        
         </div>
         <div className="mt-2">
-        <Image className='h-[100px] w-[250px]' src={`/homeblog/${getdatas.image}`} alt="" height={200} width={200}  priority/>
+        <Image className='h-[100px] w-[250px]' src={getdatas.image} alt="" height={200} width={200}  priority/>
         </div>
         {errors.bimage && <p className='text-red-500'>{errors.bimage.message}</p>}
         </div>
