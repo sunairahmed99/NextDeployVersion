@@ -55,6 +55,7 @@ export default function BlogDashboardsel(){
     }
 
     useEffect(()=>{
+      console.log('hai')
        let getdata =async ()=>{
         try{
            let token = localStorage.getItem('token')

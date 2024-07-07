@@ -37,7 +37,6 @@ export default function DashboardBlog(){
         formData.append('bdescription',data.bdescription)
 
         createHomeblog(formData)
-        route.push('/Dashboard_Blog_sel')
     }
 
     const createHomeblog =async (data:any)=>{
