@@ -20,12 +20,12 @@ if(ispublicpath && token){
 if(isprotectedpath && !token){
     return NextResponse.redirect(new URL('/login', request.url))
 }
-if(dashsel && !token){
-  return NextResponse.redirect(new URL('/login', request.url))
-}
-if(dash && !token){
-  return NextResponse.redirect(new URL('/login', request.url))
-}
+// if(dashsel && !token){
+//   return NextResponse.redirect(new URL('/login', request.url))
+// }
+// if(dash && !token){
+//   return NextResponse.redirect(new URL('/login', request.url))
+// }
 if(dashupd && !token){
   return NextResponse.redirect(new URL('/login', request.url))
 }
